@@ -1,18 +1,28 @@
 import { test, expect } from '@playwright/test';
 
 test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  await page.goto('https://practicesoftwaretesting.com/auth/register');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  // Expect the exact page title
+  await expect(page).toHaveTitle('Register - Practice Software Testing - Toolshop - v5.0');
+  // Assert the heading is visible
+  await expect(page.getByRole('heading', { name: 'Customer registration' })).toBeVisible();
+  // using css locator
+  await expect(page.locator('h3')).toHaveText('Customer registration');
+  // More flexible (partial match)
+  await expect(page.getByRole('heading', { name: /Customer registration/ })).toBeVisible();
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get startd' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+})
+test('fill first name field', async ({ page }) => {
+  await page.goto('https://practicesoftwaretesting.com/auth/register');
+  const firstNameInput = page.locator('[data-test="first-name"]');
+  await expect(firstNameInput).toBeVisible();
+  await firstNameInput.fill('John Doe');
+  const lastNameInput = page.locator('[data-test="last-name"]');
+  await expect(lastNameInput).toBeVisible();
+  await lastNameInput.fill('Smith');
+  const dobInput = page.locator('[data-test="dob"]');
+  await expect(dobInput).toBeVisible();
+  await dobInput.fill('1990-05-21');
 });
