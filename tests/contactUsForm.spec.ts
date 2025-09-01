@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import * as fs from 'fs';
 
 test('has title', async ({ page }) => {
   await page.goto('https://practicesoftwaretesting.com/auth/register');
@@ -16,13 +17,14 @@ test('has title', async ({ page }) => {
 })
 test('fill first name field', async ({ page }) => {
   await page.goto('https://practicesoftwaretesting.com/auth/register');
+  const userData = JSON.parse(fs.readFileSync('fixture/userData.json', 'utf-8'));
   const firstNameInput = page.locator('[data-test="first-name"]');
   await expect(firstNameInput).toBeVisible();
-  await firstNameInput.fill('John Doe');
+  await firstNameInput.fill(userData.firstName);
   const lastNameInput = page.locator('[data-test="last-name"]');
   await expect(lastNameInput).toBeVisible();
-  await lastNameInput.fill('Smith');
+  await lastNameInput.fill(userData.lastName);
   const dobInput = page.locator('[data-test="dob"]');
   await expect(dobInput).toBeVisible();
-  await dobInput.fill('1990-05-21');
+  await dobInput.fill(userData.dob);
 });
