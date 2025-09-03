@@ -1,5 +1,8 @@
 {
   "firstName": "John",
   "lastName": "Smith",
-  "dob": "1990-05-21"
+  "dob": "1990-05-21",
+  "street": "G1,lahore",
+  "postcode":"5200",
+  "city":"Lahore"
 }
