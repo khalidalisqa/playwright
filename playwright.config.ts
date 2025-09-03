@@ -27,11 +27,11 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://localhost:3000',
+    //baseURL: "https://practicesoftwaretesting.com/",
+    headless: true,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    baseURL: 'https://practicesoftwaretesting.com', // ✅ your app URL
-    headless: true,
   },
 
   /* Configure projects for major browsers */
