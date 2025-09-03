@@ -30,6 +30,8 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    baseURL: 'https://practicesoftwaretesting.com', // ✅ your app URL
+    headless: true,
   },
 
   /* Configure projects for major browsers */

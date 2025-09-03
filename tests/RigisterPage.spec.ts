@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import * as fs from 'fs';
 
 test('has title', async ({ page }) => {
-  await page.goto('https://practicesoftwaretesting.com/auth/register');
+  await page.goto('/auth/register');
 
   // Expect the exact page title
   // await expect(page).toHaveTitle('Register - Practice Software Testing - Toolshop - v5.0');
@@ -17,7 +17,7 @@ test('has title', async ({ page }) => {
 })
 test('fill registration form fields', async ({ page }) => {
   // Navigate to page
-  await page.goto('https://practicesoftwaretesting.com/auth/register');
+  await page.goto('/auth/register');
 
   // Load user data from fixture
   const userData = JSON.parse(fs.readFileSync('fixture/userData.json', 'utf-8'));
@@ -86,5 +86,43 @@ test('fill registration form fields', async ({ page }) => {
   // Assert the value is correctly filled
   await expect(emailInput).toHaveValue(userData.email);
 
+  // Password
+  const passwordInput = page.locator('[data-test="password"]');
+  await expect(passwordInput).toBeVisible();
+  await passwordInput.fill(userData.password);
+
+// Assert input type is "password" (value is hidden in UI)
+  await expect(passwordInput).toHaveAttribute('type', 'password');
+
+// Assert it's not empty (instead of showing actual value)
+  const passwordValue = await passwordInput.inputValue();
+  expect(passwordValue.length).toBeGreaterThan(0);
+
+// icon 
+  // Password eye icon (button with no text, just icon)
+  const eyeIconButton = page.getByRole('button').filter({ hasText: /^$/ });
+
+// Check if the button is visible
+  await expect(eyeIconButton).toBeVisible();
+
+// Check if the button is enabled (clickable)
+  await expect(eyeIconButton).toBeEnabled();
+
+// Try clicking it (to confirm functionality)
+  await eyeIconButton.click();
+
+  //  Assert that "Strong" text appears
+  const strengthText = page.getByText('Strong', { exact: true });
+  await expect(strengthText).toBeVisible();
+
+
+  // Submit button
+  const submitButton = page.locator('[data-test="register-submit"]');
+
+// Assert button text
+  await expect(submitButton).toHaveText('Register');
+
+// Assert background color
+  await expect(submitButton).toHaveCSS('background-color', 'rgb(30, 96, 152)');
 
 });
