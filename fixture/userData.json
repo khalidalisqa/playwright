@@ -4,5 +4,9 @@
   "dob": "1990-05-21",
   "street": "G1,lahore",
   "postcode":"5200",
-  "city":"Lahore"
+  "city":"Lahore",
+  "state":"lahore",
+  "country":"AL",
+  "phone":"399038902",
+  "email": "abc@gmail.com"
 }

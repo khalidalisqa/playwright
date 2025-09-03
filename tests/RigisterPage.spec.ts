@@ -58,4 +58,33 @@ test('fill registration form fields', async ({ page }) => {
   // Assert the value is correctly filled
   await expect(cityInput).toHaveValue(userData.city);
 
+  // State
+  const stateInput = page.locator('[data-test="state"]');
+  await expect(stateInput).toBeVisible();
+  await stateInput.fill(userData.state);
+  // Assert the value is correctly filled
+  await expect(stateInput).toHaveValue(userData.state);
+
+  // Country
+  const countryDropdown = page.locator('[data-test="country"]');
+  await expect(countryDropdown).toBeVisible();
+  await countryDropdown.selectOption({ value: 'AL' });
+  await expect(countryDropdown).toHaveValue(userData.country);  // or 'AL' depending on HTML
+
+// Phone
+  const phoneInput = page.locator('[data-test="phone"]');
+  await expect(phoneInput).toBeVisible();
+  await phoneInput.fill(userData.phone);
+  // Assert the value is correctly filled
+  await expect(phoneInput).toHaveValue(userData.phone);
+
+
+// Email
+  const emailInput = page.locator('[data-test="email"]');
+  await expect(emailInput).toBeVisible();
+  await emailInput.fill(userData.email);
+  // Assert the value is correctly filled
+  await expect(emailInput).toHaveValue(userData.email);
+
+
 });
