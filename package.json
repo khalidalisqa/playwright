@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:cucumber": "cucumber-js --require-module ts-node/register --require steps/**/*.ts --format json:allure-results/cucumber-report.json features/**/*.feature",
+    "report:allure": "allure generate allure-results --clean -o allure-report && allure open allure-report"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/khalidalisqa/playwright.git"
@@ -17,8 +20,12 @@
   "homepage": "https://github.com/khalidalisqa/playwright#readme",
   "devDependencies": {
     "@cucumber/cucumber": "^12.2.0",
+    "@cucumber/messages": "^28.1.0",
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.3.0",
+    "allure-commandline": "^2.34.1",
+    "allure-cucumberjs": "^3.3.3",
+    "allure-playwright": "^3.3.3",
     "playwright": "^1.55.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"

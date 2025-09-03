@@ -1,9 +1,13 @@
 module.exports = {
   default: {
-    require: ["./steps/**/*.ts"],       // ✅ load steps
-    requireModule: ["ts-node/register"], // ✅ allow TS execution
-    paths: ["./features/**/*.feature"],  // ✅ feature files
-    format: ["progress"],
-    publishQuiet: true,
+    require: ["./steps/**/*.ts"],          // step definitions
+    requireModule: ["ts-node/register"],   // run TypeScript directly
+    paths: ["./features/**/*.feature"],    // feature files
+    format: [
+      "progress",                          // simple progress bar
+      "summary",                           // scenario/step summary
+      "html:reports/cucumber-report.html"  // optional HTML report
+    ],
+    publishQuiet: true
   },
 };

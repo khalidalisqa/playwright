@@ -1,0 +1,102 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "customer-registration;fill-out-registration-form-successfully",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Fill out registration form successfully",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "I open the registration page",
+            "match": {
+              "location": "steps/registration.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3007740939
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "I fill the registration form with valid data",
+            "match": {
+              "location": "steps/registration.steps.ts:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 506514246
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "I should see the password field masked",
+            "match": {
+              "location": "steps/registration.steps.ts:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24801626
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 7,
+            "name": "I toggle the password visibility",
+            "match": {
+              "location": "steps/registration.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 134130270
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "I should see password strength \"Strong\"",
+            "match": {
+              "location": "steps/registration.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9468915
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "I should see the Register button with correct text and color",
+            "match": {
+              "location": "steps/registration.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 122291154
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "customer-registration",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Customer Registration",
+    "tags": [],
+    "uri": "features/registration.feature"
+  }
+]
