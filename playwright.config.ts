@@ -1,84 +1,41 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
-  testDir: './tests',
-  /* Run tests in files in parallel */
+  testDir: "./tests",
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    ['list'], // console output
-    ['allure-playwright'], // allure reporter
-  ],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
-    //baseURL: "https://practicesoftwaretesting.com/",
-    headless: true,
+  reporter: [["list"]],
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-  },
-
-  /* Configure projects for major browsers */
   projects: [
+    // Local browsers
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+
+    // BrowserStack project
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "BrowserStack-Chrome",
+      use: {
+        browserName: "chromium",
+        connectOptions: {
+          wsEndpoint: `wss://cdp.browserstack.com/playwright?caps=${encodeURIComponent(
+            JSON.stringify({
+              browser: "chrome",
+              browser_version: "latest",
+              os: "osx",
+              os_version: "ventura",
+              name: "Playwright test",
+              build: "playwright-build-001",
+              "browserstack.username": process.env.BROWSERSTACK_USERNAME,
+              "browserstack.accessKey": process.env.BROWSERSTACK_ACCESS_KEY,
+              "client.playwrightVersion": require("playwright/package.json").version, // ✅ required
+            })
+          )}`,
+        },
+        headless: true,
+        trace: "on-first-retry",
+      },
     },
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });

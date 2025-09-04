@@ -45,7 +45,7 @@ export class RegistrationPage {
     await expect(this.heading).toBeVisible();
   }
 
-  // 👉 Field-specific methods
+  // Field-specific method
   async fillFirstName(value: string) {
     await expect(this.firstName).toBeVisible();
     await this.firstName.fill(value);
